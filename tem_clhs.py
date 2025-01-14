@@ -802,7 +802,8 @@ DataFilePath = datapath + 'tTEM Inversion XYZ Files'    # Data path is relative 
 
 # USER OPTIONS
 
-DataFileName = 'Robson_tTEM_Inv_Original_Smooth'  # Input tTEM .xyz file name
+# DataFileName = 'Robson_tTEM_Inv_Original_Smooth'  # Input tTEM .xyz file name
+DataFileName = 'Clarklind tTEM Inversion'  # Input tTEM .xyz file name
 OutFileName = 'TEST'  # Output .txt file name
 SoundingMaxDepth = 35  # Maximum sounding depth to use in feature space
 
@@ -812,26 +813,21 @@ nDL = 5  # Number of samples (DL=design levels)
 # DEFINE BOUNDARIES OF STUDY AREA (soundings outside this region are completely excluded from the sampling design)
 # Note: the UTM coordinates are always translated so the smallest X/Y points are at 0, this reduces the number of digits to plot
 
-# BoundaryPoly = path.Path([[-10, 390], [250, 390], [375, 455], [500, 500],
-#                               [525, 500], [625, 500], [600, 1200],
-#                                                    [-10, 1200], [-10, 390]])  # Polygon defining boundaries of study area (first pt must equal last pt)
+# BoundaryPoly = path.Path([[-10, 390], [600, 390], [600, 425], [750, 425],
+#                           [950, 650], [950, 1200], [-10, 1200], [-10, 390])  # Polygon defining boundaries of study area (first pt must equal last pt)
 
-BoundaryPoly = path.Path([[-10, 390], [600, 390], [600, 425], [750, 425],
-                          [950, 650], [950, 1200], [-10, 1200], [-10, 390]])  # Polygon defining boundaries of study area (first pt must equal last pt)
+BoundaryPoly = path.Path([[-40, -40], [1000, -40], [1000, 500], [-40, 500], [-40, -40]])  # CLARKLIND
 
 # DEFINE PARTIAL-EXCLUSION CRITERIA (soundings that cannot be sampled but that will impact the selection of the sampled soundings)
 
 # Edge criteria: soundings too close to the edge of the survey area should be subject to partial-exclusion
 EdgePolyFlag = True
 #   Option 1. Define inclusion polygon; all soudings inside polygon are included, those outside are partially excluded
-# EdgePolygon = path.Path([[-10, 390], [250, 390], [375, 455], [500, 500],
-#                               [525, 500], [625, 500], [600, 1200],
-#                                                    [-10, 1200], [-10, 390]])
-EdgePolygon = path.Path([[-10, 390], [600, 390], [600, 425], [750, 425],
-                         [950, 650], [950, 1200], [-10, 1200], [-10, 390]])
 
-EdgePolygon = path.Path([[100, 450], [300, 410], [580, 410], [700, 470],
-                         [750, 590], [820, 625], [900, 740], [890, 1110], [100, 1060], [100, 390]])
+# EdgePolygon = path.Path([[100, 450], [300, 410], [580, 410], [700, 470],
+#                          [750, 590], [820, 625], [900, 740], [890, 1110], [100, 1060], [100, 390]])  # ROBSON FRONT 100
+
+EdgePolygon = path.Path([[40, 40], [760, 40], [760, 360], [40, 360], [40, 40]])  # CLARKLIND
 
 
 # EdgePolygon = path.Path([[75, 75], [700, 50], [700, 325], [100, 350], [75, 75]])
@@ -874,6 +870,7 @@ rFact = 10  # For sparse sampling, specify the reduction factor
 # LockIdx = [300, 100, 200]
 LockIdx = []   # Indices of soundings to ALWAYS sample from (cannot be changed during simulated annealing);
                    # Length <= nDL; if empty, no sample indices are locked (default)
+
 # %%
 # LOAD DATA
 XYZ_Inv = load_xyz_file(DataFilePath + '\\' + DataFileName + '.xyz')
